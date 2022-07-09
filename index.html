@@ -12,7 +12,7 @@
 
 <div id="app-send-top">
   <input type="text" v-model="name" placeholder="Имя">
-  <input type="text" v-model="phone" placeholder="+7(777) 777-77-77" id="popup-form__phone">
+  <input type="text" placeholder="+7(777) 777-77-77" id="popup-form__phone">
   <button @click="sendDataSrm()">Отправить</button>
 </div>
 
@@ -27,7 +27,7 @@ new Vue({
   data: {
     rooms: [],
     payload: {},
-    phone: '',
+    phone: '77777777777',
     name: '',
   },
   mounted() {
@@ -47,7 +47,8 @@ new Vue({
       this.payload.name =  this.name;
       this.payload.phone =  this.phone;
       console.log(this.payload)
-      axios.post('https://tamerlan-tumar.kz/send.php', this.payload).then((response) => { 
+      // axios.post('https://tamerlan-tumar.kz/send.php', this.payload).then((response) => { 
+      axios.post('https://keysmankeysman.github.io/my-new/send.php', this.payload).then((response) => { 
           console.log(response.data)
 
         }).catch(function (error) {
