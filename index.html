@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tamerlan</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="app-send-top">
+  <input type="text" v-model="name" placeholder="Имя">
+  <input type="text" v-model="phone" placeholder="+7(777) 777-77-77" id="popup-form__phone">
+  <button @click="sendDataSrm()">Отправить</button>
+</div>
+
+<script src="https://unpkg.com/imask"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+new Vue({
+  el: "#app-send-top",
+  data: {
+    rooms: [],
+    payload: {},
+    phone: '',
+    name: '',
+  },
+  mounted() {
+    var number, elInput;
+    var element = document.getElementById("popup-form__phone"),
+        maskOptions = {
+            mask: "+{7} (000) 000-00-00"
+        },
+        mask = IMask(element, maskOptions);
+    (elInput = document.getElementById("popup-form__phone")).onblur = function() {
+        var e = mask.unmaskedValue.replace(/\D/g, "").slice(1);
+        number = e, numberStr = String(number)
+    };
+  },
+  methods: {
+    sendDataSrm() {
+      this.payload.name =  this.name;
+      this.payload.phone =  this.phone;
+      console.log(this.payload)
+      axios.post('https://tamerlan-tumar.kz/send.php', this.payload).then((response) => { 
+          console.log(response.data)
+
+        }).catch(function (error) {
+          console.log('Ошибка')
+          console.log(error)
+        });
+    }
+  }
+})
+
+
+</script>
+</body>
+</html>
